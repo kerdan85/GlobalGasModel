@@ -5,8 +5,8 @@
 %%
 %%  Standalone LaTeX (compile separately, or \input into the main file).
 %%  Uses the same sn-bibliography.bib. Figure paths point at outputs/figures.
-%%  Fill the two [ ] placeholders (repo URL) before submission, and confirm
-%%  every table value against the final locked-model run.
+%%  Repo URL + Zenodo DOI filled in (Data and code availability). Confirm
+%%  every table value against the final locked-model run before submission.
 %% ====================================================================
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -39,6 +39,26 @@
 \renewcommand{\thetable}{S\arabic{table}}
 \renewcommand{\theequation}{S\arabic{equation}}
 \renewcommand{\thesection}{S\arabic{section}}
+
+% Widen the ToC number boxes so two-digit labels (S10-S12, S11.1) do not
+% collide with the section titles.
+\makeatletter
+\renewcommand*\l@section[2]{%
+  \ifnum \c@tocdepth >\z@
+    \addpenalty\@secpenalty
+    \addvspace{1.0em \@plus\p@}%
+    \setlength\@tempdima{2.8em}% was 1.5em
+    \begingroup
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      \leavevmode \bfseries
+      \advance\leftskip\@tempdima
+      \hskip -\leftskip
+      #1\nobreak\hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
+    \endgroup
+  \fi}
+\renewcommand*\l@subsection{\@dottedtocline{2}{2.8em}{3.4em}}
+\makeatother
 
 \title{\textbf{Supplementary Information}\\[4pt]
 Energy sovereignty leakage: gas import substitution could relocate global
@@ -389,9 +409,14 @@ premium falls on Mexico rather than altering the global leak.
 
 \begin{figure}[H]\centering
 \includegraphics[width=0.7\linewidth]{outputs/figures/Scenario_heatmap.png}
-\caption{ESL response surface across US spare export capacity
-(\texttt{us\_supply\_scale}) and the cost of Mexican shale. Leakage rises with
-US capacity and is invariant to Mexican-shale cost.}\label{fig:heatmap}
+\caption{Headline ESL across US spare export capacity
+(\texttt{us\_supply\_scale}) and the cost of Mexican shale, shown as grouped
+bars. Within each capacity group the three Mexican-shale-cost bars are
+identical, so leakage is invariant to Mexican-shale cost; across groups leakage
+rises as US spare capacity \emph{tightens} (lower \texttt{us\_supply\_scale}).
+The non-monotonic step at the central scale reflects the discrete,
+market-by-market tipping of the least-cost switch that makes the
+above-threshold magnitude conditional.}\label{fig:heatmap}
 \end{figure}
 
 % ---------------------------------------------------------------
@@ -757,7 +782,9 @@ All input data derive from public sources: the Energy Institute Statistical
 Review of World Energy \citep{EI2024}, US EIA, IEA \citep{iea_methane_2024},
 and the EIA/ARI world shale assessment \citep{EIA_ARI2013}. Model code
 (PyPSA), scenario definitions, the ESL and threshold drivers, and all
-plotting scripts are available at [REPOSITORY URL TO ADD]. Calibration sources
+plotting scripts are available at
+\texttt{https://github.com/kerdan85/GlobalGasModel} and archived at
+\texttt{https://doi.org/10.5281/zenodo.24039785}. Calibration sources
 and assumptions are documented in \texttt{CALIBRATION\_NOTES.md}.
 
 \bibliographystyle{plainnat}

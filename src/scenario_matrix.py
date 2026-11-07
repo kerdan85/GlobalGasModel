@@ -83,18 +83,37 @@ def _plot_1d(out, axes):
 
 
 def _plot_2d(grid, xs, ys, axis_x, axis_y):
-    fig, ax = plt.subplots(figsize=(6.5, 5))
-    im = ax.imshow(grid, origin="lower", aspect="auto", cmap="RdBu_r",
-                   vmin=0, vmax=120)
-    ax.set_xticks(range(len(xs))); ax.set_xticklabels(xs)
-    ax.set_yticks(range(len(ys))); ax.set_yticklabels(ys)
-    ax.set_xlabel(axis_x); ax.set_ylabel(axis_y)
-    for j in range(grid.shape[0]):
-        for i in range(grid.shape[1]):
-            ax.text(i, j, f"{grid[j, i]:.0f}", ha="center", va="center",
-                    color="black", fontsize=9)
-    fig.colorbar(im, ax=ax, label="Headline ESL (%)")
-    ax.set_title("ESL response surface")
+    # Grouped bars: ESL vs the capacity axis (ys), one bar per cost axis (xs).
+    # Equal bars within a group make the invariance to the cost axis visible,
+    # while group heights show the capacity dependence -- clearer than a
+    # 3-column heatmap whose identical columns read as empty.
+    _PRETTY = {"us_supply_scale": "US spare export-capacity scale",
+               "mex_shale_cost": "Mexican-shale cost (model \\$/MMBtu-eq)"}
+    nx = len(xs)
+    cols = ["#15486f", "#2e86c1", "#a9cce3", "#5dade2", "#d4e6f1"]
+    fig, ax = plt.subplots(figsize=(7.2, 4.6))
+    x = np.arange(len(ys)); w = 0.8 / max(nx, 1)
+    for i, xv in enumerate(xs):
+        vals = [grid[j, i] for j in range(len(ys))]
+        ax.bar(x + (i - (nx - 1) / 2.0) * w, vals, w,
+               label=f"{xv:g}", color=cols[i % len(cols)],
+               edgecolor="white", linewidth=0.6, zorder=3)
+    ax.set_xticks(x); ax.set_xticklabels([f"{v:g}" for v in ys])
+    ax.set_xlabel(_PRETTY.get(axis_y, axis_y) + "  (lower = tighter)")
+    ax.set_ylabel("Headline ESL (%)")
+    ax.legend(title=_PRETTY.get(axis_x, axis_x), fontsize=8,
+              title_fontsize=8, frameon=False)
+    for s in ("top", "right"):
+        ax.spines[s].set_visible(False)
+    ax.grid(axis="y", alpha=0.3, zorder=0)
+    if nx > 1:
+        ax.annotate("Bars within each group are equal\n\u2192 ESL invariant "
+                    "to " + _PRETTY.get(axis_x, axis_x).split(" (")[0],
+                    xy=(0.97, 0.82), xycoords="axes fraction", ha="right",
+                    va="top", fontsize=8, color="#444",
+                    bbox=dict(boxstyle="round,pad=0.3", fc="#f4f6f7",
+                              ec="#ccc", lw=0.5))
+    ax.set_title("Leakage is set by US export capacity, not Mexican-shale cost")
     plt.tight_layout()
     plt.savefig("outputs/figures/Scenario_heatmap.png", dpi=300)
     plt.close(fig)

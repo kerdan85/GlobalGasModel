@@ -137,19 +137,47 @@ def validate(make_figure=True):
           f"(China excluded; see SI)")
 
     if make_figure and len(dfq):
-        df = dfq
-        fig, ax = plt.subplots(figsize=(6, 6))
+        df = dfq.copy()
+        # tidy metric names for labels
+        PRETTY = {"US_production": "US production", "US_LNG_exports": "US LNG exports",
+                  "US_LNG_exp": "US LNG exports", "Norway_exports": "Norway exports",
+                  "Norway_exp": "Norway exports", "US_Mexico_pipe": "US→Mexico pipe",
+                  "USMexico_pipe": "US→Mexico pipe", "US_to_Mexico": "US→Mexico pipe"}
+        def _pretty(m):
+            return PRETTY.get(m, str(m).replace("_", " "))
+
+        fig, ax = plt.subplots(figsize=(7, 7))
         ax.scatter(df["Observed"], df["Modelled"], c="#1f6fb2", s=55,
                    edgecolor="black", linewidth=0.5, zorder=3)
         lim = max(df["Observed"].max(), df["Modelled"].max()) * 1.1
         ax.plot([0, lim], [0, lim], ls="--", color="grey", zorder=1)
-        for _, r in df.iterrows():
-            ax.annotate(f"{r['Metric'][:10]} {int(r['Year'])}",
-                        (r["Observed"], r["Modelled"]), fontsize=6,
-                        xytext=(4, 4), textcoords="offset points")
+
+        # Well-separated high-volume points: label directly.
+        hi = df[df["Observed"] > 300]
+        for _, r in hi.iterrows():
+            ax.annotate(f"{_pretty(r['Metric'])} {int(r['Year'])}",
+                        (r["Observed"], r["Modelled"]), fontsize=8,
+                        xytext=(8, -4), textcoords="offset points",
+                        va="center", ha="left")
+
+        # Crowded low-volume cluster: fan labels into a staggered column
+        # in the empty lower-right triangle, each with a thin leader line.
+        lo = df[df["Observed"] <= 300].sort_values("Modelled", ascending=False)
+        nlo = len(lo)
+        if nlo:
+            y_top, y_bot = 0.52 * lim, 0.06 * lim
+            xlab = 0.40 * lim
+            ys = [y_top - (y_top - y_bot) * k / max(nlo - 1, 1) for k in range(nlo)]
+            for (_, r), ylab in zip(lo.iterrows(), ys):
+                ax.annotate(f"{_pretty(r['Metric'])} {int(r['Year'])}",
+                            xy=(r["Observed"], r["Modelled"]),
+                            xytext=(xlab, ylab), textcoords="data",
+                            fontsize=7.5, va="center", ha="left",
+                            arrowprops=dict(arrowstyle="-", lw=0.4, color="0.55"))
+
         ax.set_xlim(0, lim); ax.set_ylim(0, lim)
         ax.set_xlabel("Observed (BCM)"); ax.set_ylabel("Modelled (BCM)")
-        ax.set_title(f"Out-of-sample back-cast (MAE {mape:.1f}%)")
+        ax.set_title(f"Out-of-sample back-cast (MAE {mape:.1f}%; China excluded)")
         ax.grid(alpha=0.3)
         plt.tight_layout()
         plt.savefig("outputs/figures/Validation_backcast.png", dpi=300)
