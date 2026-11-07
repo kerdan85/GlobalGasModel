@@ -1,0 +1,8 @@
+Fuel,Stage,GWP100_gCO2e_per_MJ,GWP20_gCO2e_per_MJ
+Gas (US shale-LNG),Combustion,56.1,56.1
+Gas (US shale-LNG),Supply chain (extraction-liquefaction-shipping-regas),26.34,40.11
+Coal (Asian),Mining & preparation,11.99,29.73
+Coal (Asian),Transport,1.29,1.48
+Coal (Asian),Combustion,94.6,94.6
+Gas (US shale-LNG),TOTAL,82.4,96.2
+Coal (Asian),TOTAL,107.9,125.8

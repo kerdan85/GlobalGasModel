@@ -1,0 +1,20 @@
+Year,Metric,Observed
+# Observed out-of-sample targets for back-casting. The model is NOT
+# tuned to these years. Values are approximate public figures
+# (Energy Institute Statistical Review; EIA) -- VERIFY before use.
+# Units: BCM per year.
+2018,US_production,840
+2018,US_LNG_exports,28
+2018,US_Mexico_pipeline,50
+2018,Norway_exports,120
+2018,China_imports,125
+2021,US_production,934
+2021,US_LNG_exports,95
+2021,US_Mexico_pipeline,57
+2021,Norway_exports,113
+2021,China_imports,165
+2023,US_production,1035
+2023,US_LNG_exports,119
+2023,US_Mexico_pipeline,62
+2023,Norway_exports,110
+2023,China_imports,165

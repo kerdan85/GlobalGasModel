@@ -1,0 +1,239 @@
+# ==========================================================
+# plot_north_america.py
+# ==========================================================
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import geopandas as gpd
+
+from matplotlib.patches import FancyArrowPatch
+
+from shapely.geometry import Point
+
+# ----------------------------------------------------------
+# Coordinates
+# ----------------------------------------------------------
+
+coords = {
+
+    "US_GULF":(-92,29),
+
+    "PERMIAN":(-103,31),
+
+    "APPALACHIA":(-80,40),
+
+    "CAN_WEST":(-120,55),
+
+    "CAN_EAST":(-70,53),
+
+    "MEX":(-102,23),
+
+    "US":(-98,38),
+
+    "CANADA":(-100,58),
+
+    "US_LNG":(-88,30)
+
+}
+
+# ----------------------------------------------------------
+# Plot
+# ----------------------------------------------------------
+
+def plot_north_america():
+
+    world = gpd.read_file(
+
+        gpd.datasets.get_path("naturalearth_lowres")
+
+    )
+
+    trade = pd.read_csv(
+
+        "outputs/trade_flows.csv"
+
+    )
+
+    years = [2025,2030,2035,2040]
+
+    fig,axs = plt.subplots(
+
+        2,
+
+        2,
+
+        figsize=(14,10)
+
+    )
+
+    axs = axs.flatten()
+
+    for i,year in enumerate(years):
+
+        ax = axs[i]
+
+        world.plot(
+
+            ax=ax,
+
+            color="whitesmoke",
+
+            edgecolor="gray",
+
+            linewidth=0.4
+
+        )
+
+        ax.set_xlim(-135,-55)
+
+        ax.set_ylim(10,70)
+
+        ax.set_xticks([])
+
+        ax.set_yticks([])
+
+        ax.set_title(
+
+            str(year),
+
+            fontsize=14,
+
+            fontweight="bold"
+
+        )
+
+        df = trade[
+
+            trade.Year==year
+
+        ]
+
+        for _,row in df.iterrows():
+
+            if (
+
+                row["From"] in coords
+
+                and
+
+                row["To"] in coords
+
+            ):
+
+                x1,y1 = coords[row["From"]]
+
+                x2,y2 = coords[row["To"]]
+
+                arrow = FancyArrowPatch(
+
+                    (x1,y1),
+
+                    (x2,y2),
+
+                    arrowstyle="-|>",
+
+                    mutation_scale=10,
+
+                    linewidth=0.3+0.03*row["Flow"],
+
+                    color="#1f77b4",
+
+                    alpha=0.8,
+
+                    connectionstyle="arc3,rad=0.15"
+
+                )
+
+                ax.add_patch(arrow)
+
+        for node in coords:
+
+            x,y = coords[node]
+
+            ax.scatter(
+
+                x,
+
+                y,
+
+                s=40,
+
+                color="firebrick",
+
+                edgecolor="black",
+
+                linewidth=0.3,
+
+                zorder=5
+
+            )
+
+        ax.text(
+
+            -101,
+
+            22,
+
+            "Mexico",
+
+            fontsize=9,
+
+            weight="bold"
+
+        )
+
+        ax.text(
+
+            -93,
+
+            27,
+
+            "US Gulf",
+
+            fontsize=8
+
+        )
+
+        ax.text(
+
+            -81,
+
+            41,
+
+            "Appalachia",
+
+            fontsize=8
+
+        )
+
+        ax.text(
+
+            -121,
+
+            56,
+
+            "Canada",
+
+            fontsize=8
+
+        )
+
+    plt.tight_layout()
+
+    plt.savefig(
+
+        "outputs/figures/Figure1_NorthAmericaTrade.png",
+
+        dpi=600,
+
+        bbox_inches="tight"
+
+    )
+
+    plt.close()
+
+    print(
+
+        "North America trade map saved."
+
+    )

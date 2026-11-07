@@ -1,0 +1,8 @@
+Technology,MarginalCost,CapitalCost,Extendable,CO2Factor,CH4Leakage,LNGEnergyPenalty
+CONVENTIONAL,3,0,0,56,1.0,0
+CANADIAN,2.5,0,0,56,1.0,0
+SHALE,4,15,1,56,2.5,0
+SHALE_MATURE,2.8,0,0,56,0.6,0
+OFFSHORE,2.5,20,0,56,0.4,0
+LNG_EXPORTER,2.5,0,0,56,1.0,8
+SLACK,100,0,0,0,0,0

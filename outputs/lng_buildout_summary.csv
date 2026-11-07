@@ -1,0 +1,6 @@
+Year,TotalLiqThroughput,TotalRegasThroughput,NewLiqCap,NewRegasCap,NewLiqTerminals,NewRegasTerminals,CurrentLiqTerminals,CurrentRegasTerminals
+2025,586.0,735.9,0.0,0.0,0,0,67,108
+2030,678.2,838.3,97.2,131.2,14,21,67,108
+2035,774.4,922.8,193.4,267.4,23,41,67,108
+2040,880.2,1045.9,299.2,447.2,37,67,67,108
+2045,1021.2,1158.3,435.2,575.2,52,86,67,108

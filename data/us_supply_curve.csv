@@ -1,0 +1,24 @@
+Node,Tranche,Capacity,MarginalCost
+# US production as a RISING marginal-cost step supply curve.
+# MODERATE CENTRAL case: tranche-0 ~ current production; the
+# export-profitable tranches (t0+t1, which deliver LNG below the coal
+# parity) sum to ~1400 BCM, leaving meaningful but bounded US export
+# headroom. US spare export capacity is then swept via the
+# `us_supply_scale` axis (0.85 tight .. 1.2 abundant) so leakage is
+# reported as a CONDITIONAL RANGE rather than a single number.
+# Tranches 2-3 deliver LNG above coal parity (~7.1+) and act as a wall.
+# Capacities -- CALIBRATE to EIA AEO cost-supply curves.
+#   delivered-to-Asia LNG = tranche cost + 0.2 liq + 0.5 capital + 1.8 ship
+#   -> t0 ~4.8, t1 ~5.7 (beat coal 6.5);  t2 ~7.1, t3 ~9.1 (do not)
+US_GULF,0,440,2.3
+US_GULF,1,95,3.2
+US_GULF,2,55,4.6
+US_GULF,3,45,6.6
+PERMIAN,0,390,2.2
+PERMIAN,1,90,3.0
+PERMIAN,2,55,4.3
+PERMIAN,3,45,6.2
+APPALACHIA,0,320,2.8
+APPALACHIA,1,65,3.6
+APPALACHIA,2,40,4.9
+APPALACHIA,3,30,6.9

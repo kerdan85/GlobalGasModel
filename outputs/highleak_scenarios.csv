@@ -1,0 +1,7 @@
+Scenario,mean_ESL_2035_45,mean_leak_BCM,ESL_2030,ESL_2035,ESL_2040,ESL_2045,dE_GWP20_2045_Mt
+baseline (today's prices),1.0,0.5,0.0,0.0,1.5,1.4,4.9
+high reliability premium,10.1,6.6,40.5,0.2,0.0,30.0,6.0
+carbon-priced coal,4.6,3.0,16.6,0.0,0.0,13.8,18.9
+abundant US LNG,0.3,0.1,2.7,0.0,0.7,0.1,0.2
+large Asian coal fleet,2.4,0.9,53.0,4.2,1.5,1.4,4.3
+fragmented + decarbonising,2.9,1.7,0.0,-0.0,3.3,5.3,5.5

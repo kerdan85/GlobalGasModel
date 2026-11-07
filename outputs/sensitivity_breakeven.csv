@@ -1,0 +1,4 @@
+Lever,Unit,Critical_value,Target_ESL_pct
+carbon_price,$/tCO2,no crossing,25.0
+reliability_premium,$/MMBtu,no crossing,25.0
+us_supply_scale,x capacity,0.83,25.0

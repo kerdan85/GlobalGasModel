@@ -1,0 +1,15 @@
+Region,Elasticity,RefPrice,MaxElasticFraction
+# Per-region price elasticity of gas demand for the elastic-demand
+# module. Regions absent here use the config defaults
+# (DEMAND_ELASTICITY, DEMAND_REF_PRICE). Elasticity is negative.
+# RefPrice is the delivered price (model units) at which the region
+# consumes its base demand. MaxElasticFraction caps how much of base
+# demand can drop out (the rest is treated as inelastic/essential).
+# Values illustrative -- CALIBRATE to regional studies.
+EUROPE,-0.25,6.5,0.30
+CHINA,-0.40,6.0,0.45
+SOUTH_ASIA,-0.55,5.0,0.55
+SOUTHEAST_ASIA,-0.50,5.2,0.50
+NORTHEAST_ASIA,-0.20,7.0,0.25
+USA,-0.30,4.0,0.30
+LATIN_AMERICA,-0.35,5.5,0.35

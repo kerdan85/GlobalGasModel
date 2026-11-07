@@ -1,0 +1,7 @@
+Param,Std_beta,Abs_beta
+coal_parity,0.011,0.011
+lng_penalty,0.059,0.059
+us_lng_capital,-0.07,0.07
+methane_rate,0.126,0.126
+us_gas_cost,0.289,0.289
+us_supply_scale,-0.595,0.595

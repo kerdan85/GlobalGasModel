@@ -1,0 +1,12 @@
+Node,2018,2021,2023
+# Historical regional gas demand (BCM/yr) used to DRIVE the back-cast.
+# Fill the rows you have good data for; any region not listed (or left
+# blank) falls back to its 2025 value scaled by the GLOBAL_SCALE row.
+# Approximate public figures -- VERIFY before use.
+GLOBAL_SCALE,0.92,0.95,0.97
+USA,847,832,886
+CANADA,115,116,119
+MEXICO,89,90,92
+EUROPE,540,505,470
+CHINA,283,369,395
+RUSSIA,485,495,470

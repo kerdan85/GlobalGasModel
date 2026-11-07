@@ -1,0 +1,6 @@
+Configuration,ESL
+Full model (baseline),1.5
+No depletion curve (flat US supply),1.2
+No elastic demand,8.4
+No capacity persistence,1.5
+No quadratic convexity (pure LP),12.3

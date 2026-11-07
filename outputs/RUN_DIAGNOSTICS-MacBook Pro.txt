@@ -1,0 +1,22 @@
+============================================================
+RUN_DIAGNOSTICS  2026-06-23 18:07:41
+python      : /opt/anaconda3/envs/gas_model/bin/python
+working dir : /Users/ivan/Library/CloudStorage/OneDrive-InstitutoTecnologicoydeEstudiosSuperioresdeMonterrey/ENERGY_MODELS/PyPSA/Nature_energy/GlobalGasModel
+run_model   : /Users/ivan/Library/CloudStorage/OneDrive-InstitutoTecnologicoydeEstudiosSuperioresdeMonterrey/ENERGY_MODELS/PyPSA/Nature_energy/GlobalGasModel/run_model.py
+data dir    : /Users/ivan/Library/CloudStorage/OneDrive-InstitutoTecnologicoydeEstudiosSuperioresdeMonterrey/ENERGY_MODELS/PyPSA/Nature_energy/GlobalGasModel/data
+------------------------------------------------------------
+INPUT CHECK
+  OFFSHORE marginal cost : 2.5   (expected 2.5)
+  APPALACHIA technology  : SHALE_MATURE   (expected SHALE_MATURE)
+  CAN_WEST technology    : CANADIAN   (expected CANADIAN)
+  USA 2025 demand        : 985   (expected 985)
+  >>> INPUTS ARE CURRENT <<<
+============================================================
+============================================================
+OUTPUT CHECK  (from /Users/ivan/Library/CloudStorage/OneDrive-InstitutoTecnologicoydeEstudiosSuperioresdeMonterrey/ENERGY_MODELS/PyPSA/Nature_energy/GlobalGasModel/outputs/regional_balance.csv)
+  EUROPE 2045 production (Norway) : 187   (expected ~188, NOT 0)
+  USA 2025 production             : 1077   (expected ~1075)
+  Max |Residual|                  : 1.09e-08   (expected ~0)
+  Total slack                     : 0.0   (expected ~0)
+  >>> OUTPUT IS CORRECT <<<
+============================================================

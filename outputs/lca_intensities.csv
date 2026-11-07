@@ -1,0 +1,9 @@
+Fuel,Stage,GWP100_gCO2e_per_MJ,GWP20_gCO2e_per_MJ
+Gas (US shale-LNG),Upstream & LNG-chain (CO$_2$),18.0,18.0
+Gas (US shale-LNG),Upstream methane leakage,15.0,42.0
+Gas (US shale-LNG),Combustion (CO$_2$),56.0,56.0
+Coal (Asian),Mining & coal-mine methane,12.0,30.0
+Coal (Asian),Transport,1.0,1.0
+Coal (Asian),Combustion (CO$_2$),95.0,95.0
+Gas (US shale-LNG),TOTAL,89.0,116.0
+Coal (Asian),TOTAL,108.0,126.0

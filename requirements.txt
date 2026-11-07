@@ -1,0 +1,29 @@
+# Energy Sovereignty Leakage (ESL) global gas-trade model
+# Python 3.10+.  Install with:  pip install -r requirements.txt
+#
+# Core optimisation and data handling
+pypsa>=0.25            # carrier-agnostic least-cost network optimiser (needs
+                       # marginal_cost_quadratic support, i.e. >= 0.25)
+pandas>=1.5
+numpy>=1.23
+scipy>=1.9
+
+# Solver (open, no licence). Gurobi is used automatically if licensed/installed.
+highspy>=1.5
+# gurobipy            # optional; faster QP solver, requires a Gurobi licence
+
+# Plotting
+matplotlib>=3.6
+
+# Map figures (Fig. 1 reserves map; Fig. 3 North America; world flows)
+geopandas>=0.12
+cartopy>=0.21
+
+# Life-cycle assessment coupling (PyPSA x Brightway)
+bw2data>=4.0
+bw2calc>=2.0
+# NOTE: the ecoinvent 3.9.1 background database is a LICENSED product and is
+# NOT redistributed here. The lifecycle intensities it produces are cached in
+# the repository so the model and all figures reproduce without an ecoinvent
+# licence; src/lca_brightway.py regenerates them if a licensed ecoinvent 3.9.1
+# is imported into a local Brightway project named in that file.
