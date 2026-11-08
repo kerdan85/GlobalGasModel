@@ -90,13 +90,23 @@ def _plot_tornado(out, base_esl):
 
 def _plot_mc(out):
     fig, ax = plt.subplots(figsize=(7, 4.5))
-    ax.hist(out["ESL"], bins=30, color="#6a9ec0", edgecolor="white")
+    ax.hist(out["ESL"], bins=30, color="#6a9ec0", edgecolor="white", zorder=2)
     lo, med, hi = np.percentile(out["ESL"], [5, 50, 95])
-    for v, c, lbl in [(lo, "#b2182b", "5%"), (med, "black", "median"), (hi, "#b2182b", "95%")]:
-        ax.axvline(v, color=c, ls="--")
+    # shaded 90% interval + labelled median / percentile lines
+    ax.axvspan(lo, hi, color="#b2182b", alpha=0.07, zorder=1)
+    ymax = ax.get_ylim()[1]
+    for v, c, lbl in [(lo, "#b2182b", f"5th ({lo:.1f}%)"),
+                      (med, "black", f"median ({med:.1f}%)"),
+                      (hi, "#b2182b", f"95th ({hi:.1f}%)")]:
+        ax.axvline(v, color=c, ls="--", lw=1.4, zorder=3)
+        ax.text(v, ymax * 0.98, " " + lbl, rotation=90, va="top", ha="left",
+                fontsize=8, color=c)
     ax.set_xlabel("Headline ESL (%)"); ax.set_ylabel("count")
-    ax.set_title(f"Monte Carlo ESL distribution (median {med:.0f}%, 90% CI {lo:.0f}-{hi:.0f}%)")
-    ax.grid(axis="y", alpha=0.3)
+    ax.set_title(f"Monte Carlo over all governing parameters "
+                 f"(N={len(out)}): median {med:.1f}%, 90% CI {lo:.1f}–{hi:.1f}%")
+    for s in ("top", "right"):
+        ax.spines[s].set_visible(False)
+    ax.grid(axis="y", alpha=0.3, zorder=0)
     plt.tight_layout()
     plt.savefig("outputs/figures/Uncertainty_montecarlo.png", dpi=300)
     plt.close(fig)
